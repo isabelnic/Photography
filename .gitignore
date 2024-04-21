@@ -1,0 +1,9 @@
+/myenv
+/.vscode
+**/*.png
+/.idea
+**/*.csv
+**/*.tif
+**/*.avi
+/to-process
+/processed
