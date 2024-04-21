@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
-save_folder = 'to-process\\'
+save_folder = 'processed\\'
 photo_folder = 'C:\\Users\\hanna\\OneDrive - University of Edinburgh\\Pictures\\2024\\plant-evolution\\'
 fps = 35
 
