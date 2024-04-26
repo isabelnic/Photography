@@ -6,6 +6,7 @@ import numpy as np
 from tqdm import tqdm
 import pandas as pd
 import cv2
+import time
 
 ''' I am having a problem where when the videos is played back the images are
     not a constant frame rate'''
@@ -41,24 +42,21 @@ def get_image_dirs():
 
 
 def stitch_images():
-    image_dirs = get_image_dirs()
-    images = {'image': [], 'time': []}
-
+    images = {'image': get_image_dirs(), 'time': []}
     ## I have to do this because the names of the image names are not in order ##
-    print('Reading images...')
-    for i in tqdm(range(len(image_dirs))):
-        image = cv2.imread(images[i])
-        ti_c = os.path.getctime(image_dirs[i])
-        images['image'].append(image)
-        images['time'].append(ti_c)
+    for dir in images['image']:
+        images['time'].append(time.ctime(os.path.getctime(dir)))
 
     images_df = pd.DataFrame(images)
-    images_df.sort_values('time', ascending=True, inplace=True).reset_index(drop=True, inplace=True)
+    images_df = images_df.sort_values('time', ascending=True).reset_index(drop=True)
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
     writer = cv2.VideoWriter(save_folder+f'timelapse_{datetime.now().strftime("%Y%m%d_%H%M%S")}.mp4', 
-                             cv2.VideoWriter_fourcc(*"MP4V"), 30, (6000,4000))
+                             fourcc, 30, (6000,4000)) #cv2.VideoWriter_fourcc(*"MP4V"), 0x7634706d
+    print(len(images_df))
     print('Writing video...')
-    for i in tqdm(range(len(images))): writer.write(image)
+    for i in tqdm(range(len(images['image']))): 
+        writer.write(cv2.imread(images_df['image'].iloc[i]))
     writer.release()
 
 
@@ -66,8 +64,7 @@ def main():
     ## run the timelapse ##
     # stitch_videos()
     stitch_images()
-    ## add more editing things here ##
-
+    ## add more editing things here later ##
 
 if __name__ == '__main__':
     main()
