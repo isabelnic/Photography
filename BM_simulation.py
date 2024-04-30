@@ -7,15 +7,16 @@ num_steps = 1000
 fig, ax = plt.subplots()
 x, y = 0, 0
 line1, = ax.plot(x, y, color='blue')
-# Function to update the animation
+
 def update(i):
+    # x and y between -1 and 1
     dx, dy = np.random.randint(low=-1, high=2, size=2)
-    dx+=0.03
-    x += dx; dy += dy
+    dx+=0.03 # add bias to the nutrients
+    x += dx; dy += dy # upda positions
     line1.plot(x, y, color='blue')
     return line1
 
-# Set up the figure and axis
+# animate
 ani = FuncAnimation(fig=fig, func=update, frames=num_steps, interval=1)
 
 plt.show()
