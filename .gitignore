@@ -4,7 +4,8 @@
 /.idea
 **/*.csv
 **/*.tif
-**/*.avi
+**/*.png
+**/*.pdf
 /.venv
 /to-process
 /processed
