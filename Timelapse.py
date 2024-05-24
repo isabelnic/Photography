@@ -12,9 +12,7 @@ import time
     not a constant frame rate'''
 
 save_folder = 'processed\\'
-photo_folder = 'C:\\Users\\hanna\\OneDrive - University of Edinburgh\\Pictures\\2024\\Italy\\pidgin-timelapse\\1'
-#'C:\\Users\\hanna\\OneDrive - University of Edinburgh\\Pictures\\2024\\Italy\\torino-park-timelapse\\'
-#'C:\\Users\\hanna\\OneDrive - University of Edinburgh\\Pictures\\2024\\plant-evolution\\'
+photo_folder = 'C:\\Users\\hanna\\OneDrive - University of Edinburgh\\Pictures\\2024\\Italy\\pidgin-timelapse\\2'
 fps = 35
 
 
