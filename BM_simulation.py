@@ -21,6 +21,7 @@ def brownian_motion(num_steps, start_pos, xbias=0, ybias=0):
     position = np.cumsum(position, axis=1)  # Take cumulative sum to get position
     return position
 
+
 pos = brownian_motion(num_steps, start_pos=[0, 0])
 
 
@@ -33,7 +34,7 @@ anim = FuncAnimation(fig=fig, func=update, frames=1000, interval=200,
                     blit=True)
 # fig.suptitle('Brownian motion particle path', fontsize=14) 
 # saving to m4 using ffmpeg writer 
-# writervideo = animation.FFMpegWriter(fps=60) 
-anim.save('Brownian_animation.mp4', fps=60) 
+writergif = animation.PillowWriter(fps=60)
+anim.save('Brownian_animation.gif',writer=writergif, dpi=300)
 plt.close() 
 
