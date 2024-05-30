@@ -2,15 +2,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import matplotlib.animation as animation 
+from datetime import datetime as dt
+import cv2
 
-num_steps = 20000
+num_steps = 1000
 
-fig = plt.figure()
-ax = plt.axes(xlim=(-50, 50), ylim=(-50, 50))
+fig, ax = plt.subplots()
 # plt.axis('off')
 global x, y
 x, y = [0], [0]
 line1, = ax.plot(0, 0, lw=0.5)
+ax.set_xlim(-40, 40)
+ax.set_ylim(-40, 40)
+ax.set_title('Brownian Motion of a Particle Path', fontsize=14)
+
 
 def brownian_motion(num_steps, start_pos, xbias=0, ybias=0):
     position = np.zeros((2, num_steps+1))  # Initialize array
@@ -24,17 +29,28 @@ def brownian_motion(num_steps, start_pos, xbias=0, ybias=0):
 
 pos = brownian_motion(num_steps, start_pos=[0, 0])
 
-
-def update(i):
-    line1.set_data(pos[0, 0:i], pos[1, 0:i])
-    return line1,
+# def update(i):
+#     line1.set_data(pos[0, 0:i], pos[1, 0:i])
+#     return line1,
 
 ## animate ##
-anim = FuncAnimation(fig=fig, func=update, frames=1000, interval=200,
-                    blit=True)
+# anim = FuncAnimation(fig=fig, func=update, frames=1000, interval=200,
+#                     blit=True)
 # fig.suptitle('Brownian motion particle path', fontsize=14) 
 # saving to m4 using ffmpeg writer 
-writergif = animation.PillowWriter(fps=60)
-anim.save('Brownian_animation.gif',writer=writergif, dpi=300)
-plt.close() 
+# writergif = animation.FFMpegWriter(fps=300) #animation.PillowWriter(fps=200)
+now = dt.now().strftime("%Y-%m-%d_%H-%M-%S")
+# anim.save(f'BM_animation_{now}.mp4',writer=writergif, dpi=300)
 
+
+## save plot as mp4 ussing cv2 ##
+# Define the codec and create VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+out = cv2.VideoWriter(f'BM_animation_{now}.avi', fourcc, 300, (800, 800))
+for i in range(num_steps):
+    line1.set_data(pos[0, 0:i], pos[1, 0:i])
+    plt.savefig('2D_BM.png')
+    img = cv2.imread('2D_BM.png')
+    out.write(img)
+    if i % 1000 == 0:
+        print(f'Frame: {i}')
