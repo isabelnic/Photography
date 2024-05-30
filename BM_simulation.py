@@ -4,8 +4,9 @@ from matplotlib.animation import FuncAnimation
 import matplotlib.animation as animation 
 from datetime import datetime as dt
 import cv2
+import os
 
-num_steps = 1000
+num_steps = 1001
 
 fig, ax = plt.subplots()
 # plt.axis('off')
@@ -43,14 +44,4 @@ now = dt.now().strftime("%Y-%m-%d_%H-%M-%S")
 # anim.save(f'BM_animation_{now}.mp4',writer=writergif, dpi=300)
 
 
-## save plot as mp4 ussing cv2 ##
-# Define the codec and create VideoWriter object
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter(f'BM_animation_{now}.avi', fourcc, 300, (800, 800))
-for i in range(num_steps):
-    line1.set_data(pos[0, 0:i], pos[1, 0:i])
-    plt.savefig('2D_BM.png')
-    img = cv2.imread('2D_BM.png')
-    out.write(img)
-    if i % 1000 == 0:
-        print(f'Frame: {i}')
+
