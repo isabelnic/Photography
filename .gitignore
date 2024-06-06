@@ -6,6 +6,8 @@
 **/*.tif
 **/*.png
 **/*.pdf
+**/*.mp4
+**/*.gif
 /.venv
 /to-process
 /processed
