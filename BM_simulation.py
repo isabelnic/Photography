@@ -30,17 +30,18 @@ def brownian_motion(num_steps, start_pos, xbias=0, ybias=0):
 
 pos = brownian_motion(num_steps, start_pos=[0, 0])
 
-# def update(i):
-#     line1.set_data(pos[0, 0:i], pos[1, 0:i])
-#     return line1,
+def update(i):
+    line1.set_data(pos[0, 0:i], pos[1, 0:i])
+    return line1,
 
 ## animate ##
-# anim = FuncAnimation(fig=fig, func=update, frames=1000, interval=200,
-#                     blit=True)
+anim = FuncAnimation(fig=fig, func=update, frames=1000, interval=200,
+                    blit=True)
+plt.show()
 # fig.suptitle('Brownian motion particle path', fontsize=14) 
 # saving to m4 using ffmpeg writer 
 # writergif = animation.FFMpegWriter(fps=300) #animation.PillowWriter(fps=200)
-now = dt.now().strftime("%Y-%m-%d_%H-%M-%S")
+# now = dt.now().strftime("%Y-%m-%d_%H-%M-%S")
 # anim.save(f'BM_animation_{now}.mp4',writer=writergif, dpi=300)
 
 
